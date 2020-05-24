@@ -45,23 +45,7 @@ public class ReadFiles {
      * Method allows read all lights image in the start of the app.
      *
      * @return the HashMap with pair: the names of light and two Image to this light, first with the light is turn off and second when the light is turn on..
-     * @throws IOException the io exception
      */
-//    public HashMap<String, Image[]> loadLights() throws IOException {
-//        String[] lightList = {"pLights", "ltsLights", "rtsLights", "lbLights",
-//                "hbLights", "ffLights", "rfLights", "ccLights"};
-//        HashMap<String, Image[]> result = new HashMap<>();
-//        String absolutePath = (new File("src\\main\\resources\\org\\Presentation\\img\\lights").getAbsolutePath()) + "\\";
-//        for (String name : lightList) {
-//            Image[] lights = {
-//                    new Image(new FileInputStream(absolutePath + name + "D.png")),
-//                    new Image(new FileInputStream(absolutePath + name + "E.png"))
-//            };
-//            result.put(name, lights);
-//        }
-//        return result;
-//    }
-
     public HashMap<String, Image[]> loadLights() {
         String[] lightList = {"pLights", "ltsLights", "rtsLights", "lbLights",
                 "hbLights", "ffLights", "rfLights", "ccLights"};

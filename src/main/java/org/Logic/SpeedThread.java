@@ -55,6 +55,8 @@ public class SpeedThread extends Thread {
     }
 
     public void run() {
+        long startTime = System.currentTimeMillis();
+        float distance;
         try {
             Thread.sleep(startAfter);
         } catch (InterruptedException e) {
@@ -82,6 +84,25 @@ public class SpeedThread extends Thread {
                         e.printStackTrace();
                     }
                 }
+                if (System.currentTimeMillis() - startTime >= 1000) {
+                    startTime = System.currentTimeMillis();
+                    distance = dashboard.getSpeed() * (1f / 3600f);
+                    try {
+                        dashboard.setCounter(dashboard.getCounter() + distance);
+                    } catch (NegativeValueException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        dashboard.setDayCounter1(dashboard.getDayCounter1() + distance);
+                    } catch (NegativeValueException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        dashboard.setDayCounter2(dashboard.getDayCounter2() + distance);
+                    } catch (NegativeValueException e) {
+                        e.printStackTrace();
+                    }
+                }
                 synchronized (uiController) {
                     uiController.refresh();
                 }
@@ -91,13 +112,11 @@ public class SpeedThread extends Thread {
             }
         }
         float coefficient = dashboard.getSettings().getEngineType() == 'P' ? 3.5f : 4.4f;
-        float distance;
         float maxSpeed = 0.0f;
         float maxCombustion = 0.0f;
         long avgSpeed = 0;
         long avgRevs = 0;
         float divideIter = 1;
-        long startTime = System.currentTimeMillis();
         float revs = 0.0f;
         float gearMaxSpeed = 0;
         while(engineRunning) {
@@ -106,7 +125,8 @@ public class SpeedThread extends Thread {
                     dashboard.addSpeed(1);
                 } else if (dashboard.isKeyDown() && dashboard.getSpeed() >= 3) {
                     dashboard.subSpeed(3);
-                    uiController.switchOffCruiseControl();
+                    if (dashboard.isCruiseControlLights())
+                        uiController.switchOffCruiseControl();
                 } else {
                     if (!uiController.getDashboard().isCruiseControlLights())
                         dashboard.subSpeed(1);
@@ -136,7 +156,8 @@ public class SpeedThread extends Thread {
                         }
                     }
                     dashboard.setRevs(revs);
-                } catch (NegativeValueException | TurnSignalException | InterruptedException e) {
+                } catch (InterruptedException ignored) {
+                } catch (TurnSignalException | NegativeValueException e) {
                     e.printStackTrace();
                 }
                 if(System.currentTimeMillis() - startTime >= 1000) {

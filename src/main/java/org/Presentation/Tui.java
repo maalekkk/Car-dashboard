@@ -142,16 +142,15 @@ public class Tui extends UiController {
             speedThread.setEngineRunning(true);
             speedThread.start();
         } else {
+            keyThread.interrupt();
+            keyThread = null;
             engineRunning = false;
             speedThread.setEngineRunning(false);
             speedThread.interrupt();
             speedThread = null;
-            keyThread = null;
             try {
                 menu();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            } catch (IOException e) {}
         }
     }
 
@@ -343,7 +342,7 @@ public class Tui extends UiController {
                 System.out.print("Please give me number of gears: ");
                 byte numOfGears = scanner.nextByte();
                 while (numOfGears != 5 && numOfGears != 6) {
-                    System.out.print("Please give me number between 10 and 999: ");
+                    System.out.print("Please give me number between 5 and 6: ");
                     numOfGears = scanner.nextByte();
                 }
                 dashboard.getSettings().setNumberOfGears(numOfGears);

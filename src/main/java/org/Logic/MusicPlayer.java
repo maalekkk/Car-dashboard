@@ -16,7 +16,7 @@ public class MusicPlayer {
     private ReadFiles loadFiles = new ReadFiles();
     private ArrayList<Media> playlist = new ArrayList<>();
     private MediaPlayer mediaPlayer = null;
-    private double volume = 75;
+    private double volume = 50;
     private int currentSong = 0;
     private String playlistDirectoryPath;
     private Runnable autoPlayNext = null;
@@ -65,7 +65,6 @@ public class MusicPlayer {
             return;
         else if(mediaPlayer == null)
             mediaPlayer = new MediaPlayer(playlist.get(currentSong));
-
         mediaPlayer.setVolume(volume);
         mediaPlayer.play();
         if(autoPlayNext != null)

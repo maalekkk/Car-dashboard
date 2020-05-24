@@ -49,7 +49,7 @@
                   <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <MenuBar maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@css/menu.css">
+                  <MenuBar fx:id="menuBar" maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@css/menu.css">
                      <menus>
                         <Menu mnemonicParsing="false" text="File">
                            <items>
@@ -345,7 +345,7 @@
                                     </AnchorPane>
                                     <AnchorPane GridPane.columnIndex="2">
                                        <children>
-                                          <Slider fx:id="songVolumeS" focusTraversable="false" layoutX="12.0" layoutY="14.0" onMouseClicked="#changeVolumeMp" onMousePressed="#removeFocus" prefHeight="14.0" prefWidth="54.0" value="50.0" />
+                                          <Slider fx:id="songVolumeS" focusTraversable="false" layoutX="12.0" layoutY="14.0" onMouseClicked="#changeVolumeMp" onMouseDragged="#changeVolumeMp" onMouseReleased="#removeFocus" prefHeight="14.0" prefWidth="54.0" value="50.0" />
                                        </children>
                                     </AnchorPane>
                                  </children>

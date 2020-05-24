@@ -17,8 +17,7 @@ public class MainController {
         VBox choice = (VBox) mouseEvent.getSource();
         String id = choice.getId();
         Stage stage = (Stage) choice.getScene().getWindow();
-//        stage.close();
-        choice.getScene().getWindow().hide();
+        stage.close();
         if (id.equals("tui")) {
             try {
                 Tui.main(null);

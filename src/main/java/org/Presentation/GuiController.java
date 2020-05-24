@@ -92,6 +92,7 @@ public class GuiController extends UiController {
     @FXML private MenuItem cruiseControlMinus;
     @FXML private MenuItem cruiseControlPlus;
     @FXML private CheckMenuItem ccLightsCb;
+    @FXML private MenuBar menuBar;
 
     @FXML
     private void initialize() throws IOException, InterruptedException {
@@ -106,8 +107,11 @@ public class GuiController extends UiController {
         ccLightsCb.setSelected(false);
         cruiseControlMinus.setDisable(true);
         cruiseControlPlus.setDisable(true);
+        ccLightsCb.setDisable(true);
         reloadDashboardAfterSettings(true);
         refresh();
+        ltsLightsCb.setDisable(true);
+        rtsLightsCb.setDisable(true);
         progressBar = null;
     }
 
@@ -144,7 +148,7 @@ public class GuiController extends UiController {
         animateLights(forward);
     }
 
-    private void animateLights(boolean state) throws TurnSignalException {
+    private void animateLights(boolean state) {
         switchAllLights(state, false);
         if (!state) {
             refreshLights();
@@ -185,16 +189,26 @@ public class GuiController extends UiController {
         animLights.play();
         animLights.setOnFinished(event -> {
             if  (!state) {
-                    refreshLights();
+                ltsLightsCb.setDisable(false);
+                rtsLightsCb.setDisable(false);
+                lbLightsCb.setDisable(false);
+                hbLightsCb.setDisable(false);
+                ffLightsCb.setDisable(false);
+                rfLightsCb.setDisable(false);
+                pLightsCb.setDisable(false);
+                refreshLights();
             }
         });
     }
 
-    public void engineStartStop(boolean enable, boolean engineError) throws TurnSignalException, InterruptedException {
+    public void engineStartStop(boolean enable, boolean engineError) throws TurnSignalException {
         lbLightsCb.setSelected(dashboard.getSettings().isAutoTurnOnLowBeam());
         if(enable) {
             if (speedThread != null)
                 speedThread.setAnimateEngineSpeedRevsToZero(false);
+            ltsLightsCb.setDisable(false);
+            rtsLightsCb.setDisable(false);
+            ccLightsCb.setDisable(false);
             stopEngineMi.setDisable(false);
             startEngineMi.setDisable(true);
             dbExportMi.setDisable(true);
@@ -203,15 +217,22 @@ public class GuiController extends UiController {
             xmlImportMi.setDisable(true);
             if (dashboard.getOnBoardComputer().getJourneyTimeLocalDateTime() == null)
                 dashboard.getOnBoardComputer().startJourneyTime();
-
             int startAfter = 0;
             if (dashboard.getSpeed() == 0 && dashboard.getRevs() == 0) {
+                ltsLightsCb.setDisable(true);
+                rtsLightsCb.setDisable(true);
+                lbLightsCb.setDisable(true);
+                hbLightsCb.setDisable(true);
+                ffLightsCb.setDisable(true);
+                rfLightsCb.setDisable(true);
+                pLightsCb.setDisable(true);
                 animateEngineStart(true);
                 dashboard.engineSound(false);
                 startAfter = 5800;
-            } else
+            } else {
                 dashboard.engineSound(true);
-
+                refreshLights();
+            }
             speedThread = new SpeedThread(this, startAfter);
             speedThread.setEngineRunning(true);
             speedThread.start();
@@ -222,6 +243,18 @@ public class GuiController extends UiController {
             switchAllLights(false, true);
             if (dashboard.getMusicPlayer().isPlaying())
                 playPauseMp();
+            try {
+                dashboard.setCruiseControlSpeed((short) 0);
+            } catch (CruiseControlException ignored) {}
+            ltsLightsCb.setDisable(true);
+            rtsLightsCb.setDisable(true);
+            dashboard.setKeyUp(false);
+            dashboard.setKeyDown(false);
+            dashboard.setCruiseControlLights(false);
+            ccLightsCb.setSelected(false);
+            cruiseControlPlus.setDisable(true);
+            cruiseControlMinus.setDisable(true);
+            ccLightsCb.setDisable(true);
             startEngineMi.setDisable(false);
             stopEngineMi.setDisable(true);
             dbExportMi.setDisable(false);
@@ -229,10 +262,6 @@ public class GuiController extends UiController {
             dbImportMi.setDisable(false);
             xmlImportMi.setDisable(false);
             speedThread.setEngineRunning(false);
-            if (dashboard.getSettings().isAutoTurnOnLowBeam()) {
-                dashboard.setLowBeamLights(false);
-                lbLightsCb.setSelected(false);
-            }
             if (engineError) {
                 Platform.runLater(() -> {
                     openDialog("Engine problem", "Engine turned off", "Ok");
@@ -412,7 +441,7 @@ public class GuiController extends UiController {
         }
     }
 
-    private void switchAllLights(boolean state, boolean opacity) throws TurnSignalException {
+    private void switchAllLights(boolean state, boolean opacity) {
         int isOn = (state) ? 1 : 0;
         changeLight(ltsLights, lights.get("ltsLights")[isOn], state, opacity);
         if (ltsLightsCb.isSelected()) {
@@ -544,6 +573,7 @@ public class GuiController extends UiController {
         revcounter.setMaxValue(maxRevs);
         short lightingLevel = dashboard.getSettings().getDashboardLightingLevel();
         mainGridPaneGui.setStyle("-fx-background-color: rgb("+lightingLevel+", "+lightingLevel+", "+lightingLevel+");");
+        menuBar.setStyle("-fx-background-color: rgb("+lightingLevel+", "+lightingLevel+", "+lightingLevel+");");
         if(lightingLevel != 0) {
             speedometer.setBackgroundPaint(Color.rgb(20 + lightingLevel, 20 + lightingLevel, 20 + lightingLevel));
             revcounter.setBackgroundPaint(Color.rgb(20 + lightingLevel, 20 + lightingLevel, 20 + lightingLevel));
@@ -794,6 +824,7 @@ public class GuiController extends UiController {
      * Exit app.
      */
     public void exitApp() {
+        onStageDestruction();
         Platform.exit();
     }
 

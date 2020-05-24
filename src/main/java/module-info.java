@@ -1,3 +1,6 @@
+/**
+ * Defines the dashboard application.
+ */
 module org.ProgKompo {
     requires javafx.controls;
     requires javafx.fxml;

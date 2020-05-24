@@ -33,7 +33,10 @@ public class Gui extends Application {
 
         //Close Button
         ImageView closeButton = (ImageView)fxmlLoader.getNamespace().get("cancelButton");
-        closeButton.setOnMouseClicked(e -> stage.close());
+        closeButton.setOnMouseClicked(e -> {
+            stage.close();
+            this.stop();
+        });
 
         //Min Button
         ImageView minButton = (ImageView)fxmlLoader.getNamespace().get("MinButton");

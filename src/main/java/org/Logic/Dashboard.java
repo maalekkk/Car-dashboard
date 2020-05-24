@@ -450,6 +450,8 @@ public class Dashboard implements Serializable {
      */
     public void setLeftTurnSignal(boolean leftTurnSignal) throws TurnSignalException {
         if (rightTurnSignal) {
+            this.keyUp = false;
+            this.keyDown = false;
             throw new TurnSignalException("Right signal is on.");
         }
         this.leftTurnSignal = leftTurnSignal;
@@ -463,6 +465,8 @@ public class Dashboard implements Serializable {
      */
     public void setRightTurnSignal(boolean rightTurnSignal) throws TurnSignalException {
         if (leftTurnSignal) {
+            this.keyUp = false;
+            this.keyDown = false;
             throw new TurnSignalException("Left signal is on.");
         }
         this.rightTurnSignal = rightTurnSignal;
@@ -688,12 +692,11 @@ public class Dashboard implements Serializable {
      * @param shortVersion true if you want the short version, false is extended
      */
     public void engineSound(boolean shortVersion) {
-        String path = "src/main/resources/org/Presentation/sound/engine";
+        String path = "./sound/engine";
         if (shortVersion)
             path += "Short";
         path += ".mp3";
-//        AudioClip audioClip = new AudioClip(Paths.get(path).toUri().toString());
-        AudioClip audioClip = new AudioClip(new File("sound/engine.mp3").toURI().toString());
+        AudioClip audioClip = new AudioClip(new File(path).toURI().toString());
         audioClip.play();
     }
 
@@ -701,9 +704,8 @@ public class Dashboard implements Serializable {
      * Gear sound.
      */
     public void gearSound() {
-        String path = "src/main/resources/org/Presentation/sound/gear.mp3";
-//        AudioClip audioClip = new AudioClip(Paths.get(path).toUri().toString());
-        AudioClip audioClip = new AudioClip(new File("sound/gear.mp3").toURI().toString());
+        String path = "./sound/gear.mp3";
+        AudioClip audioClip = new AudioClip(new File(path).toURI().toString());
         audioClip.play();
     }
 

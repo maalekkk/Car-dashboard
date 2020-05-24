@@ -63,7 +63,7 @@
                               <Insets top="-5.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="44.0" prefWidth="121.0" text="Dashboard" textFill="WHITE">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Dashboard" textFill="WHITE">
                            <font>
                               <Font name="Agency FB" size="26.0" />
                            </font>
@@ -76,7 +76,7 @@
                         </Label>
                      </children>
                      <VBox.margin>
-                        <Insets bottom="-5.0" right="30.0" />
+                        <Insets bottom="-5.0" right="50.0" />
                      </VBox.margin>
                   </HBox>
                </children>
@@ -91,13 +91,24 @@
                         <Glow />
                      </effect>
                   </Label>
-                  <Label alignment="CENTER" opacity="0.86" prefHeight="57.0" prefWidth="121.0" text="Cypyright 2020   Bartlomiej Malkowski" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" opacity="0.86" prefHeight="57.0" prefWidth="121.0" text="Cypyright 2020" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
                      <font>
                         <Font name="Agency FB" size="15.0" />
                      </font>
                      <effect>
                         <Glow level="0.13" />
                      </effect>
+                  </Label>
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" opacity="0.86" prefHeight="57.0" prefWidth="121.0" text="Bartlomiej Malkowski" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+                     <font>
+                        <Font name="Agency FB" size="15.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.13" />
+                     </effect>
+                     <VBox.margin>
+                        <Insets top="-10.0" />
+                     </VBox.margin>
                   </Label>
                </children>
             </VBox>
