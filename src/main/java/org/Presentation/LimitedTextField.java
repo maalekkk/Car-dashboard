@@ -1,0 +1,41 @@
+package org.Presentation;
+
+import javafx.scene.control.TextField;
+
+/**
+ * The type Limited text field.
+ */
+public class LimitedTextField extends TextField {
+    private int maxlength;
+
+    /**
+     * Instantiates a new Limited text field.
+     */
+    public LimitedTextField() {
+        this.maxlength = 3;
+    }
+    public void setMaxlength(int maxlength) {
+        this.maxlength = maxlength;
+    }
+
+    @Override
+    public void replaceText(int start, int end, String text) {
+        if (text.equals("")) {
+            super.replaceText(start, end, text);
+        } else if (getText().length() < maxlength) {
+            super.replaceText(start, end, text);
+        }
+    }
+
+    @Override
+    public void replaceSelection(String text) {
+        if (text.equals("")) {
+            super.replaceSelection(text);
+        } else if (getText().length() < maxlength) {
+            if (text.length() > maxlength - getText().length()) {
+                text = text.substring(0, maxlength- getText().length());
+            }
+            super.replaceSelection(text);
+        }
+    }
+}

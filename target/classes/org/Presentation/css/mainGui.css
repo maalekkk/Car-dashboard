@@ -1,0 +1,25 @@
+.dialog-button {
+    -fx-background-color: #82b7dc;
+    -fx-border-color: #82b7dc;
+    -fx-text-fill: white;
+    -fx-border-radius: 60;
+    -fx-font-size: 11;
+}
+
+.dialog-button:hover {
+    -fx-background-color: #000000;
+    -fx-border-color: black;
+    -fx-text-fill: white;
+    -fx-border-radius: 40;
+    -fx-font-size: 11;
+}
+
+.dialog-layout {
+    -fx-font-size: 12;
+    -fx-max-height: 90;
+    -fx-max-width: 240;
+}
+
+.window-shortcut:hover, .window-shortcut, .window-shortcut:focused {
+
+}

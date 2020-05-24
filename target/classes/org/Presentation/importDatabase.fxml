@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="mainGui" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.Presentation.ImportDatabaseController">
+   <children>
+      <VBox fx:id="topPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="331.0" prefWidth="990.0" style="-fx-background-color: #252429;">
+         <children>
+            <HBox alignment="CENTER_RIGHT">
+               <children>
+                  <ImageView fx:id="MinButton" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="window-shortcut">
+                     <image>
+                        <Image url="@img/window/minLineWi.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets top="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="MaxButton" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="window-shortcut">
+                     <image>
+                        <Image url="@img/window/maxWi.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" top="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="cancelButton" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" styleClass="window-shortcut">
+                     <image>
+                        <Image url="@img/window/cancelWi.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" right="5.0" top="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Records from database" textFill="WHITE">
+               <font>
+                  <Font name="Agency FB" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-5.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="If you want to load a record, double-click on a given row, otherwise exit to the main window." textFill="WHITE">
+               <font>
+                  <Font name="Bell MT" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+            </Label>
+            <TableView fx:id="tableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMousePressed="#onMousePressed" prefHeight="15000.0" prefWidth="910.0" stylesheets="@css/importDatabase.css">
+               <columns>
+                  <TableColumn fx:id="recordId" minWidth="0.0" prefWidth="13.0" text="No." />
+                  <TableColumn fx:id="avgSpeed" minWidth="6.0" prefWidth="107.0" text="Avg. speed" />
+                  <TableColumn fx:id="maxSpeed" prefWidth="72.0" text="Max. speed" />
+                  <TableColumn fx:id="avgFuel" minWidth="30.0" prefWidth="97.0" text="Avg. fuel usage" />
+                  <TableColumn fx:id="maxFuel" minWidth="30.0" prefWidth="95.0" text="Max. fuel usage" />
+                  <TableColumn fx:id="journeyDistance" minWidth="40.0" prefWidth="68.0" text="Journey distance" />
+                  <TableColumn fx:id="journeyMinutes" minWidth="15.0" prefWidth="81.0" text="Journey time" />
+                  <TableColumn fx:id="counter" prefWidth="53.0" text="Counter" />
+                  <TableColumn fx:id="dayCounter1" minWidth="25.0" prefWidth="87.0" text="Day counter 1" />
+                  <TableColumn fx:id="dayCounter2" minWidth="25.0" prefWidth="92.0" text="Day counter 2" />
+                  <TableColumn fx:id="recordDate" prefWidth="136.0" text="Date" />
+               </columns>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</StackPane>
